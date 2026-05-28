@@ -1,0 +1,552 @@
+/* =============================================
+   FASE 1 — Variables CSS y Base
+   ============================================= */
+
+:root {
+  /* --- Colores --- */
+  --color-bg: #14141f;
+  --color-surface: #1e1e2d;
+  --color-accent: #6d6dff;
+  --color-accent-light: #9b8fff;
+  --color-text: #ffffff;
+  --color-text-muted: rgba(255, 255, 255, 0.5);
+  --color-separator: rgba(255, 255, 255, 0.35);
+
+  /* --- Tipografía --- */
+  --font-heading: "ArchivoBlack", sans-serif;
+  --font-body: "OpenSans", sans-serif;
+
+  /* --- Tamaños de fuente (desktop) --- */
+  --fs-hero-name: 72px;
+  --fs-section: 40px;
+  --fs-subtitle: 18px;
+  --fs-body: 18px;
+  --fs-link: 18px;
+  --fs-card-title: 24px;
+  --fs-card-body: 14px;
+
+  /* --- Espaciado general --- */
+  --section-py: 100px;
+  --container-px: 120px;
+  --container-max: 1280px;
+}
+
+/* =============================================
+   RESET BASE
+   ============================================= */
+
+*,
+*::before,
+*::after {
+  /*box-sizing: border-box;*/
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* =============================================
+   MANCHAS DE FONDO (degradados radiales CSS)
+   Posicionados desde el centro con calc()
+   para que en monitores anchos no se alejen
+   demasiado del contenido.
+   ============================================= */
+
+body::before {
+  content: "";
+  position: fixed;
+  top: -220px;
+  left: calc(50% - 740px);
+  width: 680px;
+  height: 680px;
+  background: radial-gradient(
+    circle,
+    rgba(109, 109, 255, 0.38) 0%,
+    rgba(109, 109, 255, 0.1) 45%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 20px;
+  left: calc(50% + 280px);
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(
+    circle,
+    rgba(56, 112, 255, 0.22) 0%,
+    rgba(56, 112, 255, 0.06) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* =============================================
+   CONTENEDOR COMPARTIDO
+   ============================================= */
+
+.hero__container,
+.skills__container,
+.projects__container,
+.contact__container {
+  max-width: var(--container-max);
+  margin: 0;
+  padding: 0 var(--container-px);
+  position: relative;
+  z-index: 1;
+}
+
+/* =============================================
+   TÍTULO DE SECCIÓN (compartido)
+   ============================================= */
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: var(--fs-section);
+  font-weight: 900;
+  color: var(--color-text);
+  line-height: 1.1;
+  margin-bottom: 48px;
+}
+
+/* =============================================
+   FASE 2 — SECCIÓN HERO
+   ============================================= */
+
+.hero {
+  padding: 40px 0 100px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Layout flex: texto | foto */
+.hero__container {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+/* ---------- Columna de texto ---------- */
+
+.hero__text {
+  flex: 1;
+  max-width: 793px;
+  /*padding-top: 49px;*/
+}
+
+.hero__name {
+  font-family: var(--font-heading);
+  font-size: var(--fs-hero-name);
+  font-weight: 900;
+  color: var(--color-text);
+  line-height: 1.05;
+  margin-bottom: 16px;
+  margin-top: 0;
+}
+
+.hero__subtitle {
+  font-family: var(--font-body);
+  font-size: var(--fs-subtitle);
+  font-weight: 400;
+  color: var(--color-text-muted); /* blanco 50% según Figma */
+  line-height: 1.4;
+  margin-bottom: 30px;
+}
+
+.hero__separator {
+  color: var(--color-separator);
+}
+
+.hero__bio {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  color: var(--color-text); /* blanco 100% según Figma */
+  line-height: 1.75;
+  margin-bottom: 30px;
+}
+
+/* --- Links con subrayado de degradado --- */
+
+.hero__links {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.hero__link {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: var(--fs-link);
+  font-weight: 600; /* SemiBold según Figma */
+  color: var(--color-text);
+  text-decoration: none;
+  padding-bottom: 8px;
+  /* Subrayado con degradado usando background */
+  background-image: linear-gradient(
+    90deg,
+    var(--color-accent) 0%,
+    var(--color-accent-light) 50%,
+    var(--color-accent) 100%
+  );
+  background-size: 100% 3px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: opacity 0.25s ease;
+}
+
+.hero__link:hover {
+  opacity: 0.72;
+}
+
+/* ---------- Columna de foto ---------- */
+
+.hero__photo-wrapper {
+  flex-shrink: 0;
+}
+
+.hero__photo {
+  width: 387px;
+  height: 500px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 0; /* sin bordes redondeados según Figma */
+  display: block;
+}
+
+/* =============================================
+   SECCIÓN HABILIDADES (Phase 3 — estructura)
+   ============================================= */
+
+.skills {
+  padding: 0 0; /*padding: var(--section-py) 0;*/
+  position: relative;
+  z-index: 1;
+}
+
+.skills__list {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.skills__icon {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+/* Íconos inline SVG que deben mostrarse en blanco */
+.skills__icon--white {
+  width: 60px;
+  height: 60px;
+  color: var(--color-text);
+}
+
+/* =============================================
+   SECCIÓN PROYECTOS (Phase 4 — estructura)
+   ============================================= */
+
+.projects {
+  padding: var(--section-py) 0;
+  position: relative;
+  z-index: 1;
+}
+
+.projects__grid {
+  display: flex;
+  gap: 24px;
+}
+
+/* --- Tarjeta de proyecto --- */
+
+.project-card {
+  flex: 1;
+  background-color: var(--color-surface);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* Contenedor de imagen con relación 16:9 */
+.project-card__image-wrapper {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background-color: var(--color-surface);
+}
+
+/* Imagen real del proyecto */
+.project-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Placeholder para proyectos sin imagen */
+.project-card__img-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #3838ee 0%, #7b2ebe 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* Velo oscuro (capa invisible con linear-gradient) */
+.project-card__veil {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 55%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+  display: flex;
+  align-items: flex-end;
+  padding: 14px 16px;
+}
+
+.project-card__tech-icons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.project-card__tech-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+/* Cuerpo de la tarjeta */
+.project-card__body {
+  padding: 24px;
+}
+
+.project-card__title {
+  font-family: var(--font-heading);
+  font-size: var(--fs-card-title);
+  font-weight: 900;
+  color: var(--color-text);
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.project-card__description {
+  font-family: var(--font-body);
+  font-size: var(--fs-card-body);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.project-card__links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.project-card__link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-accent);
+  transition: opacity 0.2s ease;
+}
+
+.project-card__link:hover {
+  opacity: 0.72;
+}
+
+/* =============================================
+   FOOTER — CONTACTO (Phase 5 — estructura)
+   ============================================= */
+
+.contact {
+  padding: 80px 0 60px;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.contact__title {
+  font-family: var(--font-heading);
+  font-size: var(--fs-section);
+  font-weight: 900;
+  color: var(--color-text);
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.contact__email {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: var(--fs-subtitle);
+  font-weight: 400;
+  color: var(--color-accent);
+  margin-bottom: 40px;
+  transition: opacity 0.2s ease;
+}
+
+.contact__email:hover {
+  opacity: 0.75;
+}
+
+.contact__social {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+  width: 300px;
+  margin: 0 auto;
+}
+
+.contact__social-link {
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.contact__social-link:hover {
+  color: var(--color-accent);
+  transform: translateY(-4px);
+}
+
+/* =============================================
+   RESPONSIVE — Tablet (≤ 1023px) — Phase 7
+   ============================================= */
+
+@media (max-width: 1023px) {
+  :root {
+    --fs-hero-name: 52px;
+    --fs-section: 36px;
+    --fs-subtitle: 16px;
+    --fs-body: 16px;
+    --fs-link: 16px;
+    --container-px: 40px;
+  }
+
+  .hero {
+    padding: 32px 0 80px;
+  }
+
+  .hero__text {
+    padding-top: 30px;
+  }
+
+  .hero__photo {
+    width: 270px;
+    height: 350px;
+  }
+
+  .skills__list {
+    gap: 32px;
+  }
+}
+
+/* =============================================
+   RESPONSIVE — Móvil (≤ 767px) — Phase 8
+   ============================================= */
+
+@media (max-width: 767px) {
+  :root {
+    --fs-hero-name: 40px;
+    --fs-section: 28px;
+    --fs-subtitle: 15px;
+    --fs-body: 14px;
+    --fs-link: 15px;
+    --container-px: 20px;
+    --section-py: 60px;
+  }
+
+  /* Hero: columna única, foto arriba */
+  .hero {
+    padding: 48px 0 64px;
+  }
+
+  .hero__container {
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .hero__text {
+    max-width: 100%;
+    padding-top: 0; /* se resetea: foto va arriba en móvil */
+  }
+
+  /* Foto al 100% de ancho, altura fija */
+  .hero__photo-wrapper {
+    width: 100%;
+  }
+
+  .hero__photo {
+    width: 100%;
+    height: 280px;
+    border-radius: 8px;
+  }
+
+  /* Ocultar separador | en móvil */
+  .hero__separator {
+    display: none;
+  }
+
+  .hero__links {
+    gap: 20px;
+  }
+
+  /* Proyectos: apilar tarjetas */
+  .projects__grid {
+    flex-direction: column;
+  }
+
+  .skills__list {
+    gap: 28px;
+  }
+
+  .skills__icon,
+  .skills__icon--white {
+    width: 48px;
+    height: 48px;
+  }
+}
